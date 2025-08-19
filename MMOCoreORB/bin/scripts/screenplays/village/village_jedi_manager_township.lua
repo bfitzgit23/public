@@ -9,8 +9,7 @@ VillageJediManagerTownship = ScreenPlay:new {
 	VILLAGE_TOTAL_NUMBER_OF_PHASES = 4,
 	phaseChangeTimeOfDay = { hour = 14, min = 0 }, -- Hour of day, server military time, to change the phase. Comment out to disable
 
-	VILLAGE_PHASE_DURATION = 3 * 24 * 60 * 60 * 1000 --3 * 7 * 24 * 60 * 60 * 1000 -- 3 weeks
-}
+	VILLAGE_PHASE_DURATION = 240 * 60 * 1000 -- 4 hours
 
 -- Set the current Village Phase for the first time.
 function VillageJediManagerTownship.setCurrentPhaseInit()
