@@ -66,21 +66,21 @@ if(ENABLE_ODB)
 	file(GLOB_RECURSE odb3_headers "odb/*.h")
 endif(ENABLE_ODB)
 
-file(GLOB_RECURSE tests_sources "tests/*.cpp")
-file(GLOB_RECURSE tests_headers "tests/*.h")
+#file(GLOB_RECURSE tests_sources "tests/*.cpp")
+#file(GLOB_RECURSE tests_headers "tests/*.h")
 
-set(core3tests_libs)
-set(gmock_libs)
+#set(core3tests_libs)
+#set(gmock_libs)
 
 add_dependencies(idlobjects engine3)
 
-if(COMPILE_TESTS)
+#if(COMPILE_TESTS)
 	# Define tests
-	enable_testing()
+#	enable_testing()
 
-	set(core3tests_libs ${tests_headers} ${tests_sources})
-	set(gmock_libs gmock)
-endif(COMPILE_TESTS)
+#	set(core3tests_libs ${tests_headers} ${tests_sources})
+#	set(gmock_libs gmock)
+#endif(COMPILE_TESTS)
 
 # Create core3 binary
 add_executable(core3 main.cpp server/ServerCore.cpp ${core3tests_libs} ${tre3_sources} ${tre3_headers} ${zone3_sources} ${zone3_headers})

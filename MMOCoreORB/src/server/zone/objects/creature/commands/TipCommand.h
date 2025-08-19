@@ -20,7 +20,7 @@ private:
 			int amount) const {
 
 		// Target player must be in range (I think it's likely to assume this is the maximum targeting range, 190m)
-		if (!checkDistance(player, targetPlayer, 190) || targetPlayer->isInvisible()) {
+		if (!checkDistance(player, targetPlayer, 190)) {
 			StringIdChatParameter ptr("base_player", "prose_tip_range"); // You are too far away to tip %TT with cash. You can send a wire transfer instead.
 			ptr.setTT(targetPlayer->getCreatureName());
 			player->sendSystemMessage(ptr);
@@ -38,7 +38,7 @@ private:
 		}
 
 		// Player must not be ignored
-		ManagedReference<PlayerObject*> target = targetPlayer->getPlayerObject();
+		auto target = targetPlayer->getPlayerObject();
 
 		if (target != nullptr) {
 			if (target->isIgnoring(player->getFirstName()))
@@ -65,15 +65,13 @@ private:
 		tipself.setTT(targetPlayer->getCreatureName());
 		player->sendSystemMessage(tipself);
 
-		if (amount >= 1)
-
 		return SUCCESS;
 	}
 
 	int performBankTip(CreatureObject* player, CreatureObject* targetPlayer,
 			int amount) const {
 
-		ManagedReference<PlayerObject*> ghost = player->getPlayerObject();
+		auto ghost = player->getPlayerObject();
 		if (ghost == nullptr) {
 			player->sendSystemMessage("@base_player:tip_error"); // There was an error processing your /tip request. Please try again.
 			return GENERALERROR;
@@ -90,7 +88,7 @@ private:
 		}
 
 		// Player must not be ignored
-		ManagedReference<PlayerObject*> target = targetPlayer->getPlayerObject();
+		auto target = targetPlayer->getPlayerObject();
 		if (target == nullptr || target->isIgnoring(player->getFirstName())) {
 				return GENERALERROR;
 		}
@@ -104,7 +102,7 @@ private:
 		String promptText = "@base_player:tip_wire_prompt"; // A surcharge of 5% will be added to your requested bank-to-bank transfer amount. Would you like to continue?
 
 		if (ConfigManager::instance()->getBool("Core3.SameAccountTipsAreFree", false)) {
-			ManagedReference<PlayerObject*> dstGhost = targetPlayer->getPlayerObject();
+			auto dstGhost = targetPlayer->getPlayerObject();
 
 			if (dstGhost != nullptr && ghost->getAccountID() == dstGhost->getAccountID()) {
 				promptText = "You are transferring credits to another character on your account, there will be no fee for this transaction. Would you like to continue?";
@@ -118,8 +116,6 @@ private:
 
 		ghost->addSuiBox(confirmbox);
 		player->sendMessage(confirmbox->generateMessage());
-
-		if (amount >= 1)
 
 		return SUCCESS;
 	}
@@ -189,7 +185,7 @@ public:
 		}
 
 		if (!syntaxError && targetPlayer == nullptr) { // No target argument, check look-at target
-			ManagedReference<SceneObject*> object = server->getZoneServer()->getObject(target);
+			auto object = server->getZoneServer()->getObject(target);
 
 			if (object != nullptr && object->isPlayerCreature()) {
 				targetPlayer = object->asCreatureObject();

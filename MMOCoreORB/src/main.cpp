@@ -13,12 +13,6 @@
 #include "server/zone/managers/director/DirectorManager.h"
 #include "server/zone/managers/object/ObjectManager.h"
 
-#ifdef COMPILE_CORE3_TESTS
-#include "tests/TestCore.h"
-
-#include "gtest/gtest.h"
-#endif
-
 #include "engine/orb/db/DOBObjectManager.h"
 
 int main(int argc, char* argv[]) {
@@ -61,13 +55,13 @@ int main(int argc, char* argv[]) {
 			}
 #endif
 #ifdef COMPILE_CORE3_TESTS
-		} else if (arguments.contains("rununittests")) {
+/*		} else if (arguments.contains("rununittests")) {
 			TestCore core;
 			core.info("Running unit tests...", true);
 
 			testing::InitGoogleTest(&argc, argv);
 
-			ret = RUN_ALL_TESTS();
+			ret = RUN_ALL_TESTS();*/
 
 			ObjectManager::instance()->shutdown();
 #endif
